@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors')
 const pino = require('pino')();
 const boom = require('boom');
 const compression = require('compression');
@@ -10,6 +11,7 @@ const asyncMiddleware = require('./util');
 
 app.use(compression());
 app.use(helmet());
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', routes);
@@ -26,4 +28,3 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || '3000';
 app.listen(port, () => pino.info(`API running on localhost:${port}`));
-
