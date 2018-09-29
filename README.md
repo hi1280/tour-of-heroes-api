@@ -19,6 +19,7 @@ npm start
 |Endpoint|Method|
 |:--|:--|
 |/api/heroes|GET|
+
 Sample Response
 ```json
 [
@@ -36,6 +37,7 @@ Sample Response
 |Endpoint|Method|
 |:--|:--|
 |/api/heroes|POST|
+
 Sample Response
 ```json
 {
@@ -47,6 +49,7 @@ Sample Response
 |Endpoint|Method|
 |:--|:--|
 |/api/heroes/:id|GET|
+
 Sample Response
 ```json
 {
@@ -58,6 +61,7 @@ Sample Response
 |Endpoint|Method|
 |:--|:--|
 |/api/heroes/:id|PUT|
+
 Sample Response
 ```json
 {
@@ -69,6 +73,7 @@ Sample Response
 |Endpoint|Method|
 |:--|:--|
 |/api/heroes/:id|DELETE|
+
 Sample Response
 ```json
 {
