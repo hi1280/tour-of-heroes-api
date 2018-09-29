@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', routes);
 
-app.get('*', asyncMiddleware(async () => {
+app.all('*', asyncMiddleware(async () => {
   throw boom.notFound();
 }));
 

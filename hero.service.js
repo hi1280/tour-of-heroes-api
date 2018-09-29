@@ -36,7 +36,7 @@ function postHero(req, res) {
   const hero = new Hero(originalHero);
   hero.save(error => {
     if (checkServerError(res, error)) return;
-    res.status(201).json(hero);
+    res.status(201).json({ id: hero.id, name: hero.name });
     pino.info('Hero created successfully!');
   });
 }
@@ -53,7 +53,7 @@ function putHero(req, res) {
     hero.name = originalHero.name;
     hero.save(error => {
       if (checkServerError(res, error)) return;
-      res.status(200).json(hero);
+      res.status(200).json({ id: hero.id, name: hero.name });
       pino.info('Hero updated successfully!');
     });
   });
@@ -64,7 +64,7 @@ function deleteHero(req, res) {
   Hero.findOneAndRemove({ id: id })
     .then(hero => {
       if (!checkFound(res, hero)) return;
-      res.status(200).json(hero);
+      res.status(200).json({ id: hero.id, name: hero.name });
       pino.info('Hero deleted successfully!');
     })
     .catch(error => {
