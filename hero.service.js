@@ -4,8 +4,12 @@ const pino = require('pino')();
 
 require('./mongo').connect();
 
-function getHeroes(_, res) {
-  const docquery = Hero.find({}).select('-_id id name').read(ReadPreference.NEAREST);
+function getHeroes(req, res) {
+  const query = {};
+  if(req.query.name){
+    query.name = new RegExp(req.query.name);
+  }
+  const docquery = Hero.find(query).select('-_id id name').read(ReadPreference.NEAREST);
   docquery
     .exec()
     .then(heroes => {
