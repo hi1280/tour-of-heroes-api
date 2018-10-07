@@ -7,7 +7,7 @@ require('./mongo').connect();
 function getHeroes(req, res) {
   const query = {};
   if(req.query.name){
-    query.name = new RegExp(req.query.name);
+    query.name = new RegExp(req.query.name, 'i');
   }
   const docquery = Hero.find(query).select('-_id id name').read(ReadPreference.NEAREST);
   docquery
