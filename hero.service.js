@@ -9,7 +9,7 @@ function getHeroes(req, res) {
   if(req.query.name){
     query.name = new RegExp(req.query.name, 'i');
   }
-  const docquery = Hero.find(query).select('-_id id name').read(ReadPreference.NEAREST);
+  const docquery = Hero.find(query).select('-_id id name').read(ReadPreference.NEAREST).limit(50);
   docquery
     .exec()
     .then(heroes => {

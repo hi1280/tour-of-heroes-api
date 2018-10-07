@@ -33,6 +33,26 @@ Sample Response
   }
 ]
 ```
+---
+
+|Endpoint|Method|Description|
+|:--|:--|:--|
+|/api/heroes?name=:name|GET|Search by name value|
+
+Sample Response
+```json
+[
+  {
+    "id": 1,
+    "name": "BLACK WIDOW"
+  },
+  {
+    "id": 2,
+    "name": "CAPTAIN AMERICA"
+  }
+]
+```
+---
 
 |Endpoint|Method|
 |:--|:--|
@@ -45,6 +65,7 @@ Sample Response
     "name": "BLACK WIDOW"
 }
 ```
+---
 
 |Endpoint|Method|
 |:--|:--|
@@ -57,6 +78,7 @@ Sample Response
     "name": "BLACK WIDOW"
 }
 ```
+---
 
 |Endpoint|Method|
 |:--|:--|
@@ -69,6 +91,7 @@ Sample Response
     "name": "FALCON"
 }
 ```
+---
 
 |Endpoint|Method|
 |:--|:--|
