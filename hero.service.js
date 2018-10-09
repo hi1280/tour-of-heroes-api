@@ -5,8 +5,8 @@ const pino = require('pino')();
 require('./mongo').connect();
 
 function getHeroes(req, res) {
-  const query = {};
-  if(req.query.name){
+  const query = { key: req.query.key };
+  if (req.query.name) {
     query.name = new RegExp(req.query.name, 'i');
   }
   const docquery = Hero.find(query).select('-_id id name').read(ReadPreference.NEAREST).limit(50);
@@ -23,7 +23,11 @@ function getHeroes(req, res) {
 
 function getHero(req, res) {
   const id = parseInt(req.params.id, 10)
-  const docquery = Hero.findOne({ id }).select('-_id id name').read(ReadPreference.NEAREST);
+  const query = { 
+    id,
+    key: req.query.key
+  }
+  const docquery = Hero.findOne(query).select('-_id id name').read(ReadPreference.NEAREST);
   docquery
     .exec()
     .then(hero => {
@@ -36,7 +40,10 @@ function getHero(req, res) {
 }
 
 function postHero(req, res) {
-  const originalHero = { name: req.body.name };
+  const originalHero = {
+    name: req.body.name,
+    key: req.query.key
+  };
   const hero = new Hero(originalHero);
   hero.save(error => {
     if (checkServerError(res, error)) return;
@@ -48,7 +55,8 @@ function postHero(req, res) {
 function putHero(req, res) {
   const originalHero = {
     id: parseInt(req.params.id, 10),
-    name: req.body.name
+    name: req.body.name,
+    key: req.query.key
   };
   Hero.findOne({ id: originalHero.id }, (error, hero) => {
     if (checkServerError(res, error)) return;
@@ -64,8 +72,12 @@ function putHero(req, res) {
 }
 
 function deleteHero(req, res) {
-  const id = parseInt(req.params.id, 10);
-  Hero.findOneAndRemove({ id: id })
+  const id = parseInt(req.params.id, 10)
+  const query = {
+    id,
+    key: req.query.key
+  }
+  Hero.findOneAndRemove(query)
     .then(hero => {
       if (!checkFound(res, hero)) return;
       res.status(200).json({ id: hero.id, name: hero.name });

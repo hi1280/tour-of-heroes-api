@@ -5,6 +5,7 @@
 * Install the MongoDB
 
 ### Usage
+
 * Install the npm packages  
 ```
 npm install
@@ -15,6 +16,10 @@ npm start
 ```
 
 ### API Reference
+
+All requests require a key parameter, eg `/api/heroes?key=123`
+
+---
 
 |Endpoint|Method|
 |:--|:--|

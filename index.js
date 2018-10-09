@@ -8,13 +8,23 @@ const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 const asyncMiddleware = require('./util');
+const { check, validationResult } = require('express-validator/check');
 
 app.use(compression());
 app.use(helmet());
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/api', routes);
+app.use('/api', [
+  check('key').exists()
+], 
+(req, res, next) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    throw boom.badData();
+  }
+  next();
+}, routes);
 
 app.all('*', asyncMiddleware(async () => {
   throw boom.notFound();
