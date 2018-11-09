@@ -53,12 +53,13 @@ function postHero(req, res) {
 }
 
 function putHero(req, res) {
+  const id = parseInt(req.params.id, 10)
   const originalHero = {
-    id: parseInt(req.params.id, 10),
+    id,
     name: req.body.name,
     key: req.query.key
   };
-  Hero.findOne({ id: originalHero.id }, (error, hero) => {
+  Hero.findOne({ id: originalHero.id, key: originalHero.key }, (error, hero) => {
     if (checkServerError(res, error)) return;
     if (!checkFound(res, hero)) return;
 
