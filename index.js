@@ -17,8 +17,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', [
   check('key').exists()
-], 
-(req, res, next) => {
+],
+(req, _, next) => {
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     throw boom.badData();
@@ -30,8 +30,8 @@ app.all('*', asyncMiddleware(async () => {
   throw boom.notFound();
 }));
 
-app.use((err, req, res, next) => {
-  console.error(err);
+app.use((err, _, res) => {
+  pino.error(err);
   res.status(err.output.statusCode)
       .json({error: {payload: err.output.payload.message}});
 });

@@ -23,7 +23,7 @@ function getHeroes(req, res) {
 
 function getHero(req, res) {
   const id = parseInt(req.params.id, 10)
-  const query = { 
+  const query = {
     id,
     key: req.query.key
   }
