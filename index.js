@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', [
   check('key').exists()
 ],
-(req, _, next) => {
+(req, _res, next) => {
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     throw boom.badData();
@@ -30,7 +30,8 @@ app.all('*', asyncMiddleware(async () => {
   throw boom.notFound();
 }));
 
-app.use((err, _, res) => {
+// eslint-disable-next-line no-unused-vars
+app.use((err, _req, res, _next) => {
   pino.error(err);
   res.status(err.output.statusCode)
       .json({error: {payload: err.output.payload.message}});
