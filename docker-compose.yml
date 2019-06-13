@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  webapp:
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      - MONGODB_URI=mongodb://db:27017/my-heroes
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24224
+        tag: docker.{{.Name}}
+        fluentd-async-connect: 'true'
+  db:
+    image: mongo:3.4.16-jessie
+    restart: always
+    volumes:
+      - /data/db:/data/db
+  fluentd:
+    image: fluent/fluentd:v1.5.1-1.0
+    restart: always
+    ports:
+      - 24224:24224
+    volumes:
+      - /tmp/fluent:/fluentd/etc
+    environment:
+      - FLUENTD_CONF=in_docker.conf
