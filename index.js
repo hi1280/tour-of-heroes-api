@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 const routes = require('./routes');
 const asyncMiddleware = require('./util');
 const { check, validationResult } = require('express-validator/check');
+const AWSXRay = require('aws-xray-sdk');
+app.use(AWSXRay.express.openSegment('tour-of-heroes'));
 
 app.use(compression());
 app.use(helmet());
@@ -36,6 +38,8 @@ app.use((err, _req, res, _next) => {
   res.status(err.output.statusCode)
       .json({error: {payload: err.output.payload.message}});
 });
+
+app.use(AWSXRay.express.closeSegment());
 
 const port = process.env.PORT || '3000';
 app.listen(port, () => pino.info(`API running on localhost:${port}`));
