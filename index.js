@@ -7,9 +7,11 @@ const compression = require('compression');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
+const auth = require('./auth');
 const asyncMiddleware = require('./util');
 const { check, validationResult } = require('express-validator/check');
 
+app.use(auth);
 app.use(compression());
 app.use(helmet());
 app.use(cors())
