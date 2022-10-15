@@ -1,0 +1,205 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 4nl588tpli7mx
+info:
+  title: openapi.yml
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /api/heroes:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                x-examples:
+                  example-1:
+                    - id: 1
+                      name: BLACK WIDOW
+                    - id: 2
+                      name: CAPTAIN AMERICA
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+              examples:
+                example:
+                  value:
+                    - id: 1
+                      name: BLACK WIDOW
+                    - id: 2
+                      name: CAPTAIN AMERICA
+                    - id: 3
+                      name: SUPERMAN
+                    - id: 4
+                      name: GUNDAM
+                    - id: 5
+                      name: ULTRAMAN
+      operationId: get-api-heroes
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: name
+        - schema:
+            type: integer
+            example: 2
+          in: query
+          name: key
+          required: true
+    post:
+      summary: ''
+      operationId: post-api-heroes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                x-examples:
+                  example-1:
+                    id: 1
+                    name: BLACK WIDOW
+              examples:
+                example-1:
+                  value:
+                    id: 0
+                    name: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              x-examples:
+                example-1:
+                  name: BLACK WIDOW
+            examples:
+              example-1:
+                value:
+                  name: string
+      parameters:
+        - schema:
+            type: integer
+            example: 2
+          in: query
+          name: key
+    parameters: []
+  '/api/heroes/{id}':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                x-examples:
+                  example-1:
+                    id: 1
+                    name: BLACK WIDOW
+              examples:
+                example:
+                  value:
+                    id: 1
+                    name: BLACK WIDOW
+      operationId: get-api-hero
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: key
+          required: true
+    parameters:
+      - schema:
+          type: integer
+          example: 1
+        name: id
+        in: path
+        required: true
+    put:
+      summary: ''
+      operationId: put-api-heroes-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                x-examples:
+                  example-1:
+                    id: 1
+                    name: FALCON
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: key
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              x-examples:
+                example-1:
+                  name: string
+    delete:
+      summary: ''
+      operationId: delete-api-heroes-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                x-examples:
+                  example-1:
+                    id: 1
+                    name: BLACK WIDOW
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: key
+components:
+  schemas: {}
